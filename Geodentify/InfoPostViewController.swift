@@ -75,9 +75,15 @@ class InfoPostViewController: UIViewController {
                         self.mapView.setRegion(region, animated: true)
                         self.location = placemark.location
 
-                        self.start(false)
                         self.getLinkToShare()
+                    } else {
+                        let alert = UIAlertController(title: "Location not found error", message: "Please try a different location", preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.presentViewController(alert, animated: true, completion: nil)
+                        })
                     }
+                    self.start(false)
                 })
             })
         }
