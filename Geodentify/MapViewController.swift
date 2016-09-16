@@ -27,17 +27,23 @@ class MapViewController: UIViewController {
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
         askForLocationPermission()
-        fetchUsersList()
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        fetchUsersList()
         self.hidesBottomBarWhenPushed = true
     }
 
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
+        removeAllAnnotations()
         self.hidesBottomBarWhenPushed = false
+    }
+
+    func removeAllAnnotations() {
+        let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
+        mapView.removeAnnotations( annotationsToRemove )
     }
 
     private func askForLocationPermission() {
@@ -142,7 +148,6 @@ extension MapViewController: MKMapViewDelegate {
         let reuseId = "pin"
         let  pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
         pinView.canShowCallout = true
-        pinView.animatesDrop = true
         let detailBtn = UIButton(type: .DetailDisclosure)
         pinView.rightCalloutAccessoryView = detailBtn
         return pinView

@@ -22,12 +22,12 @@ class ListViewViewController: UIViewController {
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
         setProperties()
-        getUserList()
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.hidesBottomBarWhenPushed = true
+        getUserList()
     }
 
     override func viewDidDisappear(animated: Bool) {
