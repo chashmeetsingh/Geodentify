@@ -57,9 +57,9 @@ class LoginViewController: UIViewController {
             errorLabel.text = "Username or Password Empty."
         } else {
             setUIEnabled(false)
+            tryLoginUser()
         }
 
-        tryLoginUser()
     }
 
     private func tryLoginUser() {

@@ -142,7 +142,7 @@
         <!--Map View-->
         <scene sceneID="Pw0-d5-HOj">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="vfu-gB-UqV" customClass="MapViewController" customModule="Geodentify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vfu-gB-UqV" customClass="MapViewController" customModule="Geodentify" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zI4-FG-E5g"/>
                         <viewControllerLayoutGuide type="bottom" id="PfS-8j-bsu"/>
@@ -151,8 +151,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IQW-c4-ii4"/>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="VHe-ut-9sA">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IQW-c4-ii4">
+                                <frame key="frameInset" width="1000" height="1000"/>
+                            </mapView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="VHe-ut-9sA">
+                                <frame key="frameInset" width="1000" height="1000"/>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                         </subviews>
@@ -289,7 +292,7 @@
         <!--List View-->
         <scene sceneID="mnB-Ef-Xaz">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="nF5-zL-lHl" customClass="ListViewViewController" customModule="Geodentify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nF5-zL-lHl" customClass="ListViewViewController" customModule="Geodentify" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Oje-wP-GGP"/>
                         <viewControllerLayoutGuide type="bottom" id="fgT-Ey-ne9"/>
@@ -305,7 +308,7 @@
                                         <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RE2-2C-6kB" id="bQD-Lr-RYA">
-                                            <frame key="frameInset" width="375" height="43"/>
+                                            <frame key="frameInset" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -381,6 +384,6 @@
         <image name="udacity" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UPH-kY-b7L"/>
+        <segue reference="sM6-hK-AIT"/>
     </inferredMetricsTieBreakers>
 </document>
