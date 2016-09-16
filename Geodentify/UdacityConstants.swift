@@ -68,7 +68,7 @@ extension UdacityClient {
     struct PublicUserDataResponseKeys {
         static let User = "user"
         static let Nickname = "nickname"
-        static let Lastname = "lastname"
+        static let Lastname = "last_name"
     }
 
     // MARK: UI

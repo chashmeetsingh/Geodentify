@@ -54,37 +54,32 @@ class InfoPostViewController: UIViewController {
         if textField.text!.isEmpty {
             let alert = UIAlertController(title: "Empty location error", message: "Please enter a location", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-            dispatch_async(dispatch_get_main_queue(), {
-                self.presentViewController(alert, animated: true, completion: nil)
-            })
+            self.presentViewController(alert, animated: true, completion: nil)
             start(false)
         } else {
-            dispatch_async(dispatch_get_main_queue(), {
-                self.locationString = self.textField.text
-                self.geocoder.geocodeAddressString(self.locationString!,completionHandler: {(placemarks: [CLPlacemark]?, error: NSError?) -> Void in
-                    if (placemarks?.count > 0) {
-                        let topResult: CLPlacemark = (placemarks?[0])!
-                        let placemark: MKPlacemark = MKPlacemark(placemark: topResult)
-                        var region: MKCoordinateRegion = self.mapView.region
+            self.locationString = self.textField.text
+            self.geocoder.geocodeAddressString(self.locationString!,completionHandler: {(placemarks: [CLPlacemark]?, error: NSError?) -> Void in
+                if (placemarks?.count > 0) {
+                    let topResult: CLPlacemark = (placemarks?[0])!
+                    let placemark: MKPlacemark = MKPlacemark(placemark: topResult)
+                    var region: MKCoordinateRegion = self.mapView.region
 
-                        region.center.latitude = (placemark.location?.coordinate.latitude)!
-                        region.center.longitude = (placemark.location?.coordinate.longitude)!
+                    region.center.latitude = (placemark.location?.coordinate.latitude)!
+                    region.center.longitude = (placemark.location?.coordinate.longitude)!
 
-                        region.span = MKCoordinateSpanMake(0.5, 0.5)
-
+                    region.span = MKCoordinateSpanMake(0.5, 0.5)
+                    performUIUpdatesOnMain({
                         self.mapView.setRegion(region, animated: true)
-                        self.location = placemark.location
+                    })
+                    self.location = placemark.location
 
-                        self.getLinkToShare()
-                    } else {
-                        let alert = UIAlertController(title: "Location not found error", message: "Please try a different location", preferredStyle: UIAlertControllerStyle.Alert)
-                        alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.presentViewController(alert, animated: true, completion: nil)
-                        })
-                    }
-                    self.start(false)
-                })
+                    self.getLinkToShare()
+                } else {
+                    let alert = UIAlertController(title: "Location not found error", message: "Please try a different location", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                self.start(false)
             })
         }
     }
@@ -101,17 +96,17 @@ class InfoPostViewController: UIViewController {
     func submit() {
         start(true)
         if verifyUrl(textField.text) {
-            dispatch_async(dispatch_get_main_queue(), {
-                let latitude = self.location.coordinate.latitude
-                let longitude = self.location.coordinate.longitude
-                var json = "{\"uniqueKey\": \"" + self.appDelegate.currentUser.id + "\", \"firstName\": \"" + self.appDelegate.currentUser.firstName + "\", \"lastName\": \""
-                json += self.appDelegate.currentUser.lastName + "\",\"mapString\": \"" + self.locationString + "\", \"mediaURL\": \"" + self.textField.text!
-                json += "\",\"latitude\": \(latitude)," + " \"longitude\": \(longitude)}"
+            let latitude = self.location.coordinate.latitude
+            let longitude = self.location.coordinate.longitude
+            var json = "{\"uniqueKey\": \"" + self.appDelegate.currentUser.id + "\", \"firstName\": \"" + self.appDelegate.currentUser.firstName + "\", \"lastName\": \""
+            json += self.appDelegate.currentUser.lastName + "\",\"mapString\": \"" + self.locationString + "\", \"mediaURL\": \"" + self.textField.text!
+            json += "\",\"latitude\": \(latitude)," + " \"longitude\": \(longitude)}"
 
-                UdacityClient.sharedInstance().postPin(json, hostViewController: self, completionHandlerForPostPin: { (success, error) in
+            UdacityClient.sharedInstance().postPin(json, hostViewController: self, completionHandlerForPostPin: { (success, error) in
+                performUIUpdatesOnMain({
                     if success {
                         print("Successfully posted")
-                        self.navigationController?.popViewControllerAnimated(true)
+                        self.navigationController?.popToRootViewControllerAnimated(true)
                     } else {
                         let alert = UIAlertController(title: "Parse Network Error", message: String(error), preferredStyle: UIAlertControllerStyle.Alert)
                         alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
