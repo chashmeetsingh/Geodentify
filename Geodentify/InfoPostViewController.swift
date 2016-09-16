@@ -28,6 +28,7 @@ class InfoPostViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationController?.navigationBar.hidden = true
+        self.navigationController?.toolbar.hidden = true
         textField.delegate = self
 
         // get the app delegate
@@ -37,6 +38,7 @@ class InfoPostViewController: UIViewController {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.hidden = false
+        self.navigationController?.toolbar.hidden = false
     }
 
     @IBAction func cancel(sender: AnyObject) {
@@ -49,32 +51,42 @@ class InfoPostViewController: UIViewController {
 
     func getLocation() {
         start(true)
-        dispatch_async(dispatch_get_main_queue(), {
-            self.locationString = self.textField.text
-            self.geocoder.geocodeAddressString(self.locationString!,completionHandler: {(placemarks: [CLPlacemark]?, error: NSError?) -> Void in
-                if (placemarks?.count > 0) {
-                    let topResult: CLPlacemark = (placemarks?[0])!
-                    let placemark: MKPlacemark = MKPlacemark(placemark: topResult)
-                    var region: MKCoordinateRegion = self.mapView.region
-
-                    region.center.latitude = (placemark.location?.coordinate.latitude)!
-                    region.center.longitude = (placemark.location?.coordinate.longitude)!
-
-                    region.span = MKCoordinateSpanMake(0.5, 0.5)
-
-                    self.mapView.setRegion(region, animated: true)
-                    self.location = placemark.location
-                    
-                    self.start(false)
-                    self.getLinkToShare()
-                }
+        if textField.text!.isEmpty {
+            let alert = UIAlertController(title: "Empty location error", message: "Please enter a location", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+            dispatch_async(dispatch_get_main_queue(), {
+                self.presentViewController(alert, animated: true, completion: nil)
             })
-        })
+            start(false)
+        } else {
+            dispatch_async(dispatch_get_main_queue(), {
+                self.locationString = self.textField.text
+                self.geocoder.geocodeAddressString(self.locationString!,completionHandler: {(placemarks: [CLPlacemark]?, error: NSError?) -> Void in
+                    if (placemarks?.count > 0) {
+                        let topResult: CLPlacemark = (placemarks?[0])!
+                        let placemark: MKPlacemark = MKPlacemark(placemark: topResult)
+                        var region: MKCoordinateRegion = self.mapView.region
+
+                        region.center.latitude = (placemark.location?.coordinate.latitude)!
+                        region.center.longitude = (placemark.location?.coordinate.longitude)!
+
+                        region.span = MKCoordinateSpanMake(0.5, 0.5)
+
+                        self.mapView.setRegion(region, animated: true)
+                        self.location = placemark.location
+
+                        self.start(false)
+                        self.getLinkToShare()
+                    }
+                })
+            })
+        }
     }
 
     func getLinkToShare() {
         self.textField.text = ""
-        self.titleLabel.text = "Enter link to share"
+        self.titleLabel.text = "Enter your link here"
+        self.textField.placeholder = "http://yourLink.here"
 
         findOnMapButton.removeFromSuperview()
         submitButton.addTarget(self, action: #selector(submit), forControlEvents: .TouchUpInside)
@@ -82,23 +94,33 @@ class InfoPostViewController: UIViewController {
 
     func submit() {
         start(true)
-        dispatch_async(dispatch_get_main_queue(), {
-            let latitude = self.location.coordinate.latitude
-            let longitude = self.location.coordinate.longitude
-            var json = "{\"uniqueKey\": \"" + self.appDelegate.currentUser.id + "\", \"firstName\": \"" + self.appDelegate.currentUser.firstName + "\", \"lastName\": \""
-            json += self.appDelegate.currentUser.lastName + "\",\"mapString\": \"" + self.locationString + "\", \"mediaURL\": \"" + self.textField.text!
-            json += "\",\"latitude\": \(latitude)," + " \"longitude\": \(longitude)}"
+        if verifyUrl(textField.text) {
+            dispatch_async(dispatch_get_main_queue(), {
+                let latitude = self.location.coordinate.latitude
+                let longitude = self.location.coordinate.longitude
+                var json = "{\"uniqueKey\": \"" + self.appDelegate.currentUser.id + "\", \"firstName\": \"" + self.appDelegate.currentUser.firstName + "\", \"lastName\": \""
+                json += self.appDelegate.currentUser.lastName + "\",\"mapString\": \"" + self.locationString + "\", \"mediaURL\": \"" + self.textField.text!
+                json += "\",\"latitude\": \(latitude)," + " \"longitude\": \(longitude)}"
 
-            UdacityClient.sharedInstance().postPin(json, hostViewController: self, completionHandlerForPostPin: { (success, error) in
-                if success {
-                    print("Successfully posted")
-                    self.navigationController?.popViewControllerAnimated(true)
-                } else {
-                    print(error)
-                }
-                self.start(false)
+                UdacityClient.sharedInstance().postPin(json, hostViewController: self, completionHandlerForPostPin: { (success, error) in
+                    if success {
+                        print("Successfully posted")
+                        self.navigationController?.popViewControllerAnimated(true)
+                    } else {
+                        let alert = UIAlertController(title: "Parse Network Error", message: String(error), preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.start(false)
+                    }
+                })
             })
-        })
+        } else {
+            start(false)
+            let alert = UIAlertController(title: "Incorrect URL", message: "Please Enter Correct URL", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: {(action: UIAlertAction) in
+            }))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
 
     func start(status: Bool){
@@ -108,6 +130,18 @@ class InfoPostViewController: UIViewController {
             button.enabled = !status
         }
         submitButton.enabled = !status
+    }
+
+    func verifyUrl (urlString: String?) -> Bool {
+        //Check for nil
+        if let urlString = urlString {
+            // create NSURL instance
+            if let url = NSURL(string: urlString) {
+                // check if your application can open the NSURL instance
+                return UIApplication.sharedApplication().canOpenURL(url)
+            }
+        }
+        return false
     }
 
 }

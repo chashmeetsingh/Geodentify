@@ -151,22 +151,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IQW-c4-ii4">
-                                <frame key="frameInset" width="1000" height="1000"/>
-                            </mapView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="VHe-ut-9sA">
-                                <frame key="frameInset" width="1000" height="1000"/>
-                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IQW-c4-ii4"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="uYJ-jJ-BfY">
+                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="IQW-c4-ii4" secondAttribute="trailing" id="DbE-im-AmM"/>
-                            <constraint firstItem="VHe-ut-9sA" firstAttribute="centerY" secondItem="IQW-c4-ii4" secondAttribute="centerY" id="FMa-jx-8ED"/>
                             <constraint firstAttribute="bottom" secondItem="IQW-c4-ii4" secondAttribute="bottom" id="K9b-HV-9fC"/>
+                            <constraint firstItem="uYJ-jJ-BfY" firstAttribute="centerY" secondItem="IQW-c4-ii4" secondAttribute="centerY" id="ZK1-7H-AK2"/>
                             <constraint firstItem="IQW-c4-ii4" firstAttribute="top" secondItem="qkt-3o-HaS" secondAttribute="top" id="azH-O8-QEe"/>
-                            <constraint firstItem="VHe-ut-9sA" firstAttribute="centerX" secondItem="IQW-c4-ii4" secondAttribute="centerX" id="ciw-YM-lXy"/>
                             <constraint firstItem="IQW-c4-ii4" firstAttribute="leading" secondItem="qkt-3o-HaS" secondAttribute="leading" id="n09-WF-bSP"/>
+                            <constraint firstItem="uYJ-jJ-BfY" firstAttribute="centerX" secondItem="IQW-c4-ii4" secondAttribute="centerX" id="xPA-Nj-tlf"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Map View" id="W7u-Bp-ddL">
@@ -182,7 +179,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="VHe-ut-9sA" id="bfM-9L-GUb"/>
+                        <outlet property="activityIndicator" destination="uYJ-jJ-BfY" id="ZiT-Z2-Ufd"/>
                         <outlet property="addPin" destination="Iue-wa-UrE" id="qbs-yl-bJ5"/>
                         <outlet property="mapView" destination="IQW-c4-ii4" id="BTm-Q5-oic"/>
                         <outlet property="signoutButton" destination="ipP-o3-N9s" id="43m-Sn-VAn"/>
@@ -190,7 +187,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wmV-qb-r5N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2549.5999999999999" y="-277.51124437781112"/>
+            <point key="canvasLocation" x="2549.5" y="-278.5"/>
         </scene>
         <!--Info Post View Controller-->
         <scene sceneID="BlQ-UD-0XG">
@@ -384,6 +381,6 @@
         <image name="udacity" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sM6-hK-AIT"/>
+        <segue reference="UPH-kY-b7L"/>
     </inferredMetricsTieBreakers>
 </document>

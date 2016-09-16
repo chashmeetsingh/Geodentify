@@ -16,6 +16,7 @@ extension UdacityClient {
         taskForPOSTMethod(UdacityClient.Udacity.ApiHost, method: "/api/session", parameters: [:], getSubData: true, jsonBody: jsonBody, completionHandlerForPOST: { (results, error) in
             if let error = error {
                 print(error)
+                completionHandlerForAuth(success: false, errorString: error.localizedDescription)
             } else if let session = results[UdacityClient.UdactiyResponseKeys.Session], let user = results[UdacityClient.UdactiyResponseKeys.Account] {
 
                 guard let sessionID = session![UdacityClient.UdactiyResponseKeys.SessionID] as? String else {

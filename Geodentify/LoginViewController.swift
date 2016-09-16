@@ -37,7 +37,10 @@ class LoginViewController: UIViewController {
 
         // get the app delegate
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         subscribeToNotification(UIKeyboardWillShowNotification, selector: #selector(keyboardWillShow))
         subscribeToNotification(UIKeyboardWillHideNotification, selector: #selector(keyboardWillHide))
         subscribeToNotification(UIKeyboardDidShowNotification, selector: #selector(keyboardDidShow))
@@ -89,9 +92,6 @@ class LoginViewController: UIViewController {
             let controller = self.storyboard!.instantiateViewControllerWithIdentifier("UserTabBarController") as! UITabBarController
             self.presentViewController(controller, animated: true, completion: nil)
         }
-    }
-
-    func toggle() {
     }
 
 }

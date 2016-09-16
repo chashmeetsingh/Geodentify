@@ -30,6 +30,16 @@ class MapViewController: UIViewController {
         fetchUsersList()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.hidesBottomBarWhenPushed = true
+    }
+
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.hidesBottomBarWhenPushed = false
+    }
+
     private func askForLocationPermission() {
         self.locationManager.delegate = self
         self.mapView.delegate = self
@@ -76,7 +86,11 @@ class MapViewController: UIViewController {
                     self.activityIndicator.stopAnimating()
                     self.toggle()
                 } else {
-                    print(error)
+                    let alert = UIAlertController(title: "Parse Network Error", message: String(error), preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    })
                 }
             })
         })
