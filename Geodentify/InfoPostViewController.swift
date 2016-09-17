@@ -42,7 +42,8 @@ class InfoPostViewController: UIViewController {
     }
 
     @IBAction func cancel(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+        print("cancel")
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
     @IBAction func findOnMap(sender: AnyObject) {

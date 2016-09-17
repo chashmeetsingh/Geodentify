@@ -154,16 +154,20 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kG2-HM-PXB"/>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6rY-Hg-Laa">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="1000" id="Oz5-1M-sHw"/>
+                                    <constraint firstAttribute="height" constant="1000" id="imQ-C7-OWq"/>
+                                </constraints>
                                 <color key="color" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="kG2-HM-PXB" secondAttribute="bottom" id="1Ym-mq-vcV"/>
-                            <constraint firstItem="6rY-Hg-Laa" firstAttribute="centerX" secondItem="kG2-HM-PXB" secondAttribute="centerX" id="2xq-Mb-eab"/>
+                            <constraint firstItem="6rY-Hg-Laa" firstAttribute="leading" secondItem="kG2-HM-PXB" secondAttribute="leading" id="FWh-BM-Sw0"/>
                             <constraint firstAttribute="trailing" secondItem="kG2-HM-PXB" secondAttribute="trailing" id="GB8-15-qiW"/>
                             <constraint firstItem="kG2-HM-PXB" firstAttribute="leading" secondItem="qkt-3o-HaS" secondAttribute="leading" id="fMa-fQ-gJY"/>
-                            <constraint firstItem="6rY-Hg-Laa" firstAttribute="centerY" secondItem="kG2-HM-PXB" secondAttribute="centerY" id="lNb-cd-GAG"/>
+                            <constraint firstItem="6rY-Hg-Laa" firstAttribute="top" secondItem="kG2-HM-PXB" secondAttribute="top" id="mQl-Gk-jYS"/>
                             <constraint firstItem="kG2-HM-PXB" firstAttribute="top" secondItem="qkt-3o-HaS" secondAttribute="top" id="s68-G1-3Hq"/>
                         </constraints>
                     </view>
@@ -195,7 +199,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wmV-qb-r5N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2548" y="-279.31034482758622"/>
+            <point key="canvasLocation" x="2547.5" y="-279.5"/>
         </scene>
         <!--Info Post View Controller-->
         <scene sceneID="BlQ-UD-0XG">
@@ -237,7 +241,7 @@
                                     <color key="titleColor" red="0.99616666669999998" green="0.97062829949999996" blue="0.93894225350000005" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="cancel:" destination="SzX-n6-1l0" eventType="touchUpInside" id="dhY-gr-bjc"/>
+                                    <action selector="cancel:" destination="SzX-n6-1l0" eventType="touchUpInside" id="tlD-5e-SKS"/>
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aEN-X3-N4L">
@@ -251,7 +255,7 @@
                                 </constraints>
                                 <state key="normal" title="Find on Map"/>
                                 <connections>
-                                    <action selector="findOnMap:" destination="SzX-n6-1l0" eventType="touchUpInside" id="hoq-qw-SzJ"/>
+                                    <action selector="findOnMap:" destination="SzX-n6-1l0" eventType="touchUpInside" id="uB3-Ya-NU7"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -329,6 +333,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="List View" id="BdD-yW-nPe">
+                        <barButtonItem key="leftBarButtonItem" systemItem="reply" id="ar7-Iy-bkq"/>
                         <barButtonItem key="rightBarButtonItem" image="pin" id="RbQ-XP-hbA">
                             <connections>
                                 <segue destination="SzX-n6-1l0" kind="presentation" id="sM6-hK-AIT"/>
@@ -389,6 +394,6 @@
         <image name="udacity" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sM6-hK-AIT"/>
+        <segue reference="UPH-kY-b7L"/>
     </inferredMetricsTieBreakers>
 </document>

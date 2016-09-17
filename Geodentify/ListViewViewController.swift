@@ -11,8 +11,6 @@ import UIKit
 class ListViewViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-
-    var users: [UdacityUser]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +21,6 @@ class ListViewViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         hidesBottomBarWhenPushed = true
-        getUserList()
     }
 
     override func viewDidDisappear(animated: Bool) {
@@ -36,17 +33,32 @@ class ListViewViewController: UIViewController {
         self.tableView.delegate = self
     }
 
-    func getUserList() {
-        users = SaveStudent.sharedInstance().getStudentData()
-        tableView.reloadData()
+    @IBAction func signout(sender: AnyObject) {
+        UdacityClient.sharedInstance().logOutUser(self, completionHandlerForUserSignOut: { (success, error) in
+            performUIUpdatesOnMain({
+                if success {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    
+                } else {
+                    let alert = UIAlertController(title: "Parse Network Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    })
+                }
+            })
+        })
     }
-
 }
 
 extension ListViewViewController: UITableViewDataSource {
+    
+    func users() -> [UdacityUser] {
+        return SaveStudent.sharedInstance().getStudentData()
+    }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return users().count
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -55,7 +67,7 @@ extension ListViewViewController: UITableViewDataSource {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("User", forIndexPath: indexPath)
-        let user = users[indexPath.row]
+        let user = users()[indexPath.row]
 
         cell.textLabel?.text = "\(user.firstName) \(user.lastName)"
         cell.imageView?.image = UIImage(named: "pin")
@@ -67,7 +79,7 @@ extension ListViewViewController: UITableViewDataSource {
 
 extension ListViewViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let user = users[indexPath.row]
+        let user = users()[indexPath.row]
         UIApplication.sharedApplication().openURL(NSURL(string: user.mediaURL)!)
     }
 }
