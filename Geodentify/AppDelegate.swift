@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var sharedSession = NSURLSession.sharedSession()
     var sessionID: String? = nil
-    var users = [UdacityUser]()
     var currentUser: User!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {

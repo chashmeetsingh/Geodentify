@@ -70,6 +70,12 @@ class InfoPostViewController: UIViewController {
                     region.span = MKCoordinateSpanMake(0.5, 0.5)
                     performUIUpdatesOnMain({
                         self.mapView.setRegion(region, animated: true)
+
+                        let coordinates = CLLocationCoordinate2D(latitude: region.center.latitude, longitude: region.center.longitude)
+                        let annotation = MKPointAnnotation()
+                        annotation.coordinate = coordinates
+                        annotation.title = self.locationString
+                        self.mapView.addAnnotation(annotation)
                     })
                     self.location = placemark.location
 
@@ -108,7 +114,7 @@ class InfoPostViewController: UIViewController {
                         print("Successfully posted")
                         self.navigationController?.popToRootViewControllerAnimated(true)
                     } else {
-                        let alert = UIAlertController(title: "Parse Network Error", message: String(error), preferredStyle: UIAlertControllerStyle.Alert)
+                        let alert = UIAlertController(title: "Parse Network Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
                         alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
                         self.presentViewController(alert, animated: true, completion: nil)
                         self.start(false)

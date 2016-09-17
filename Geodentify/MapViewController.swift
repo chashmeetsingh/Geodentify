@@ -32,13 +32,13 @@ class MapViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         fetchUsersList()
-        self.hidesBottomBarWhenPushed = true
+        hidesBottomBarWhenPushed = true
     }
 
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         removeAllAnnotations()
-        self.hidesBottomBarWhenPushed = false
+        hidesBottomBarWhenPushed = false
     }
 
     func removeAllAnnotations() {
@@ -58,15 +58,23 @@ class MapViewController: UIViewController {
     }
 
     private func fetchUsersList() {
+        toggle()
+        activityIndicator.startAnimating()
         UdacityClient.sharedInstance().fetchUsersList(self, completionHandlerForUserList: { (userList, error) in
             performUIUpdatesOnMain({
                 if let userList = userList {
-                    self.appDelegate.users = userList
+                    SaveStudent.sharedInstance().setStudentData(userList)
                     self.dropPins(userList)
                     self.getCurrentUserData()
                 } else {
-                    print(error)
+                    let alert = UIAlertController(title: "Error downloading user data", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    })
                 }
+                self.toggle()
+                self.activityIndicator.stopAnimating()
             })
         })
     }
@@ -92,7 +100,7 @@ class MapViewController: UIViewController {
                     self.activityIndicator.stopAnimating()
                     self.toggle()
                 } else {
-                    let alert = UIAlertController(title: "Parse Network Error", message: String(error), preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: "Parse Network Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
                     dispatch_async(dispatch_get_main_queue(), {
                         self.presentViewController(alert, animated: true, completion: nil)
@@ -106,14 +114,25 @@ class MapViewController: UIViewController {
         UdacityClient.sharedInstance().getCurrentUserData(self, completionHandlerForCurrentUser: { (success, error, user) in
             if success {
                 self.appDelegate.currentUser = user
+            } else {
+                let alert = UIAlertController(title: "Error downloading data", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(alert, animated: true, completion: nil)
+                })
             }
         })
     }
 
     func toggle() {
-        mapView.userInteractionEnabled = false
-        signoutButton.enabled = false
-        addPin.enabled = false
+        mapView.userInteractionEnabled = !mapView.userInteractionEnabled
+        signoutButton.enabled = !signoutButton.enabled
+        addPin.enabled = !addPin.enabled
+    }
+
+    @IBAction func reloadData(sender: AnyObject) {
+
+        getCurrentUserData()
     }
 }
 

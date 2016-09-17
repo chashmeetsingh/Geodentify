@@ -6,6 +6,7 @@
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -30,7 +31,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tfj-bB-5tQ">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="chashmeetsingh@gmail.com" borderStyle="bezel" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tfj-bB-5tQ">
                                 <color key="backgroundColor" red="1" green="0.65603090391909613" blue="0.44494610822259362" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="IzM-rZ-2KE"/>
@@ -38,7 +39,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Goy-JZ-bKx">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Sabby123" borderStyle="bezel" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Goy-JZ-bKx">
                                 <color key="backgroundColor" red="1" green="0.65603090389999996" blue="0.44494610820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="fnd-AQ-oyF"/>
@@ -153,25 +154,36 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IQW-c4-ii4"/>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="uYJ-jJ-BfY">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="1000" id="3nz-tZ-fiN"/>
+                                    <constraint firstAttribute="height" constant="1000" id="HKS-EX-dgQ"/>
+                                </constraints>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="uYJ-jJ-BfY" firstAttribute="leading" secondItem="IQW-c4-ii4" secondAttribute="leading" id="AvJ-bE-T7O"/>
                             <constraint firstAttribute="trailing" secondItem="IQW-c4-ii4" secondAttribute="trailing" id="DbE-im-AmM"/>
                             <constraint firstAttribute="bottom" secondItem="IQW-c4-ii4" secondAttribute="bottom" id="K9b-HV-9fC"/>
-                            <constraint firstItem="uYJ-jJ-BfY" firstAttribute="centerY" secondItem="IQW-c4-ii4" secondAttribute="centerY" id="ZK1-7H-AK2"/>
+                            <constraint firstItem="uYJ-jJ-BfY" firstAttribute="top" secondItem="IQW-c4-ii4" secondAttribute="top" id="QdE-dS-vh7"/>
                             <constraint firstItem="IQW-c4-ii4" firstAttribute="top" secondItem="qkt-3o-HaS" secondAttribute="top" id="azH-O8-QEe"/>
                             <constraint firstItem="IQW-c4-ii4" firstAttribute="leading" secondItem="qkt-3o-HaS" secondAttribute="leading" id="n09-WF-bSP"/>
-                            <constraint firstItem="uYJ-jJ-BfY" firstAttribute="centerX" secondItem="IQW-c4-ii4" secondAttribute="centerX" id="xPA-Nj-tlf"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Map View" id="W7u-Bp-ddL">
-                        <barButtonItem key="leftBarButtonItem" image="pin" id="Iue-wa-UrE">
-                            <connections>
-                                <segue destination="SzX-n6-1l0" kind="show" id="UPH-kY-b7L"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem image="pin" id="Iue-wa-UrE">
+                                <connections>
+                                    <segue destination="SzX-n6-1l0" kind="show" id="UPH-kY-b7L"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="refresh" id="K6x-fl-BWg">
+                                <connections>
+                                    <action selector="reloadData:" destination="vfu-gB-UqV" id="Raa-vC-2SN"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" title="Sign Out" id="ipP-o3-N9s">
                             <connections>
                                 <action selector="signoutUser:" destination="vfu-gB-UqV" id="cGj-ng-Nvc"/>

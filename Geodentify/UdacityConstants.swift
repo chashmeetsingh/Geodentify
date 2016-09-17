@@ -26,6 +26,7 @@ extension UdacityClient {
         static let Username = "username"
         static let Password = "password"
         static let Limit = "limit"
+        static let Sort = "order"
     }
 
     // MARK: Udacity Response Keys

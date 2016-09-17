@@ -40,8 +40,9 @@ extension UdacityClient {
     }
 
     func fetchUsersList(hostViewController: UIViewController, completionHandlerForUserList: (result: [UdacityUser]?, error: NSError?) -> Void) {
-        let methodParameters = [
-            UdacityClient.UdacityParameterKeys.Limit: UdacityClient.ParseParamterValues.UserLimit
+        let methodParameters: [String : AnyObject] = [
+            UdacityClient.UdacityParameterKeys.Limit: UdacityClient.ParseParamterValues.UserLimit,
+            UdacityClient.UdacityParameterKeys.Sort: "-updatedAt"
         ]
 
         taskForGETMethod(UdacityClient.Udacity.ApiParseHost, method: "/parse/classes/StudentLocation", parameters: methodParameters,getSubData: false, completionHandlerForGET: { (results, error) in
@@ -95,7 +96,11 @@ extension UdacityClient {
     func postPin(jsonBody: String, hostViewController: UIViewController, completionHandlerForPostPin: (result: Bool, error: NSError?) -> Void){
 
         taskForPOSTMethod(UdacityClient.Udacity.ApiParseHost, method: "/parse/classes/StudentLocation", parameters: [:], getSubData: false, jsonBody: jsonBody, completionHandlerForPOST: { (results, error) in
-            completionHandlerForPostPin(result: true, error: error)
+            if error == nil {
+                completionHandlerForPostPin(result: true, error: nil)
+            } else {
+                completionHandlerForPostPin(result: false, error: error)
+            }
         })
     }
 

@@ -12,27 +12,23 @@ class ListViewViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
-    var appDelegate: AppDelegate!
     var users: [UdacityUser]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // get the app delegate
-        appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
         setProperties()
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.hidesBottomBarWhenPushed = true
+        hidesBottomBarWhenPushed = true
         getUserList()
     }
 
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        self.hidesBottomBarWhenPushed = false
+        hidesBottomBarWhenPushed = false
     }
 
     private func setProperties() {
@@ -41,7 +37,7 @@ class ListViewViewController: UIViewController {
     }
 
     func getUserList() {
-        users = appDelegate.users
+        users = SaveStudent.sharedInstance().getStudentData()
         tableView.reloadData()
     }
 
