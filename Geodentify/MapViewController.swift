@@ -11,6 +11,7 @@ import MapKit
 
 class MapViewController: UIViewController {
 
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var signoutButton: UIBarButtonItem!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -152,32 +152,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IQW-c4-ii4">
-                                <frame key="frameInset" width="1000" height="1000"/>
-                            </mapView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="uYJ-jJ-BfY">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="1000" id="3nz-tZ-fiN"/>
-                                    <constraint firstAttribute="height" constant="1000" id="HKS-EX-dgQ"/>
-                                </constraints>
-                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kG2-HM-PXB"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6rY-Hg-Laa">
+                                <color key="color" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="uYJ-jJ-BfY" firstAttribute="leading" secondItem="IQW-c4-ii4" secondAttribute="leading" id="AvJ-bE-T7O"/>
-                            <constraint firstAttribute="trailing" secondItem="IQW-c4-ii4" secondAttribute="trailing" id="DbE-im-AmM"/>
-                            <constraint firstAttribute="bottom" secondItem="IQW-c4-ii4" secondAttribute="bottom" id="K9b-HV-9fC"/>
-                            <constraint firstItem="uYJ-jJ-BfY" firstAttribute="top" secondItem="IQW-c4-ii4" secondAttribute="top" id="QdE-dS-vh7"/>
-                            <constraint firstItem="IQW-c4-ii4" firstAttribute="top" secondItem="qkt-3o-HaS" secondAttribute="top" id="azH-O8-QEe"/>
-                            <constraint firstItem="IQW-c4-ii4" firstAttribute="leading" secondItem="qkt-3o-HaS" secondAttribute="leading" id="n09-WF-bSP"/>
+                            <constraint firstAttribute="bottom" secondItem="kG2-HM-PXB" secondAttribute="bottom" id="1Ym-mq-vcV"/>
+                            <constraint firstItem="6rY-Hg-Laa" firstAttribute="centerX" secondItem="kG2-HM-PXB" secondAttribute="centerX" id="2xq-Mb-eab"/>
+                            <constraint firstAttribute="trailing" secondItem="kG2-HM-PXB" secondAttribute="trailing" id="GB8-15-qiW"/>
+                            <constraint firstItem="kG2-HM-PXB" firstAttribute="leading" secondItem="qkt-3o-HaS" secondAttribute="leading" id="fMa-fQ-gJY"/>
+                            <constraint firstItem="6rY-Hg-Laa" firstAttribute="centerY" secondItem="kG2-HM-PXB" secondAttribute="centerY" id="lNb-cd-GAG"/>
+                            <constraint firstItem="kG2-HM-PXB" firstAttribute="top" secondItem="qkt-3o-HaS" secondAttribute="top" id="s68-G1-3Hq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Map View" id="W7u-Bp-ddL">
-                        <leftBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" systemItem="reply" id="ipP-o3-N9s">
+                            <connections>
+                                <action selector="signoutUser:" destination="vfu-gB-UqV" id="cGj-ng-Nvc"/>
+                            </connections>
+                        </barButtonItem>
+                        <rightBarButtonItems>
                             <barButtonItem image="pin" id="Iue-wa-UrE">
                                 <connections>
-                                    <segue destination="SzX-n6-1l0" kind="show" id="UPH-kY-b7L"/>
+                                    <segue destination="SzX-n6-1l0" kind="presentation" id="UPH-kY-b7L"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="refresh" id="K6x-fl-BWg">
@@ -185,23 +184,18 @@
                                     <action selector="reloadData:" destination="vfu-gB-UqV" id="Raa-vC-2SN"/>
                                 </connections>
                             </barButtonItem>
-                        </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" title="Sign Out" id="ipP-o3-N9s">
-                            <connections>
-                                <action selector="signoutUser:" destination="vfu-gB-UqV" id="cGj-ng-Nvc"/>
-                            </connections>
-                        </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="uYJ-jJ-BfY" id="ZiT-Z2-Ufd"/>
+                        <outlet property="activityIndicator" destination="6rY-Hg-Laa" id="sHW-uT-EjI"/>
                         <outlet property="addPin" destination="Iue-wa-UrE" id="qbs-yl-bJ5"/>
-                        <outlet property="mapView" destination="IQW-c4-ii4" id="BTm-Q5-oic"/>
+                        <outlet property="mapView" destination="kG2-HM-PXB" id="Xvv-R7-wVt"/>
                         <outlet property="signoutButton" destination="ipP-o3-N9s" id="43m-Sn-VAn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wmV-qb-r5N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2549.5" y="-278.5"/>
+            <point key="canvasLocation" x="2548" y="-279.31034482758622"/>
         </scene>
         <!--Info Post View Controller-->
         <scene sceneID="BlQ-UD-0XG">
@@ -319,7 +313,7 @@
                                         <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RE2-2C-6kB" id="bQD-Lr-RYA">
-                                            <frame key="frameInset" width="375" height="43"/>
+                                            <frame key="frameInset" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -335,9 +329,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="List View" id="BdD-yW-nPe">
-                        <barButtonItem key="leftBarButtonItem" image="pin" id="RbQ-XP-hbA">
+                        <barButtonItem key="rightBarButtonItem" image="pin" id="RbQ-XP-hbA">
                             <connections>
-                                <segue destination="SzX-n6-1l0" kind="show" id="sM6-hK-AIT"/>
+                                <segue destination="SzX-n6-1l0" kind="presentation" id="sM6-hK-AIT"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -395,6 +389,6 @@
         <image name="udacity" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UPH-kY-b7L"/>
+        <segue reference="sM6-hK-AIT"/>
     </inferredMetricsTieBreakers>
 </document>

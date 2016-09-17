@@ -76,7 +76,7 @@ class LoginViewController: UIViewController {
                 if success {
                     self.completeLogin()
                 } else {
-                    let alert = UIAlertController(title: "Error logging in", message: errorString, preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
                     dispatch_async(dispatch_get_main_queue(), {
                         self.presentViewController(alert, animated: true, completion: nil)

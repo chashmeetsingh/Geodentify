@@ -45,12 +45,8 @@ class ListViewViewController: UIViewController {
 
 extension ListViewViewController: UITableViewDataSource {
 
-    func items() -> [UdacityUser] {
-        return users
-    }
-
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items().count
+        return users.count
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -59,9 +55,9 @@ extension ListViewViewController: UITableViewDataSource {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("User", forIndexPath: indexPath)
-        let item = items()[indexPath.row]
+        let user = users[indexPath.row]
 
-        cell.textLabel?.text = "\(item.firstName) \(item.lastName)"
+        cell.textLabel?.text = "\(user.firstName) \(user.lastName)"
         cell.imageView?.image = UIImage(named: "pin")
 
         return cell
@@ -71,7 +67,7 @@ extension ListViewViewController: UITableViewDataSource {
 
 extension ListViewViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let item = items()[indexPath.row]
-        UIApplication.sharedApplication().openURL(NSURL(string: item.mediaURL)!)
+        let user = users[indexPath.row]
+        UIApplication.sharedApplication().openURL(NSURL(string: user.mediaURL)!)
     }
 }

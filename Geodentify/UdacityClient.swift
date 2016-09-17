@@ -41,7 +41,7 @@ class UdacityClient : NSObject {
 
         /* 4. Make the request */
         let task = session.dataTaskWithRequest(request) { (data, response, error) in
-
+            
             func sendError(error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
@@ -107,7 +107,7 @@ class UdacityClient : NSObject {
 
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                sendError("There was an error with your request: \(error)")
+                sendError("There was an error with your request: \(error?.localizedDescription)")
                 return
             }
 
